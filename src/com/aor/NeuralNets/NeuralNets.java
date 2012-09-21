@@ -4,6 +4,7 @@ public class NeuralNets {
 
     public static void main (String[] args) {
         System.out.println("Hello, world!");
+        Net mainNet = new Net();
     }
 
 }
