@@ -8,19 +8,18 @@ public class Node {
     private NodeOps _op;
     private double _threshold;
  
-    public void Node (NodeOps operation) {
+    public Node (NodeOps operation) {
         _op = operation;
         _links = new ArrayList<Link>();
         _threshold = Math.random();
     }
-    public void Node (NodeOps operation, ArrayList<Link> destinations, double threshold) {
+    public Node (NodeOps operation, ArrayList<Link> destinations, double threshold) {
         _op = operation;
         _links = destinations;
         _threshold = threshold;
     }
 
     private boolean doOp (NodeOps op, double threshold, double input) {
-    
         switch (op) {
             case GREATER_THAN:
                 return input > threshold;
@@ -29,22 +28,17 @@ public class Node {
             case EQUALS_TO:
                 return input == threshold;
         }
-    
         return false; // default to a fail.
-
     }
 
     /*
      * Recieve the trigger, do something with it
      */
     public void recieveTrigger (double power) {
-        
-        
-
-
-
-        for (Link link : _links) {
-            link.trigger(power);
+        if (doOp(_op, _threshold, power)) {
+            for (Link link : _links) {
+                link.trigger(power);
+            }
         }
 
     }
