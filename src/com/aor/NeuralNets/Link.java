@@ -22,7 +22,28 @@ public class Link {
         _destination = destinationNode;
         _weight = weight;
     }
-    
+
+    // Helper methods
+    public double getWeight() {
+        return _weight;
+    }
+    public void setWeight(double weight) {
+        _weight = weight;
+    }
+
+    public Node getSource() {
+        return _source;
+    }
+
+
+    public Node getDestination() {
+        return _destination;
+    }
+    public void setDestination(Node destination) {
+        _destination = destination;
+    }
+
+
     /*
      * Triggers the next node with an amount of input power, multiplied by this link's weight
      */
