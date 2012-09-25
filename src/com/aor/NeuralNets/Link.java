@@ -10,15 +10,17 @@ public class Link {
     public Link () {
         _source = null;
         _destination = null;
-        _weight = Math.random();
+        _weight = NeuralNets.generator.nextDouble();
     }
     public Link (Node sourceNode, Node destinationNode) {
         _source = sourceNode;
+        _source.addLink(this); // Register with source node
         _destination = destinationNode;
-        _weight = Math.random();
+        _weight = NeuralNets.generator.nextDouble();
     }
     public Link (Node sourceNode, Node destinationNode, double weight) {
         _source = sourceNode;
+        _source.addLink(this); // Register with source node
         _destination = destinationNode;
         _weight = weight;
     }
@@ -34,6 +36,10 @@ public class Link {
     public Node getSource() {
         return _source;
     }
+    public void setSource(Node source) {
+        _source = source;
+        _source.addLink(this); // Register with source node
+    }
 
 
     public Node getDestination() {
@@ -48,6 +54,7 @@ public class Link {
      * Triggers the next node with an amount of input power, multiplied by this link's weight
      */
     public void trigger (double power) {
+        //System.out.println("Link triggered: " + power);
         double triggerPower = power * _weight;
         _destination.recieveTrigger(triggerPower);
     }
