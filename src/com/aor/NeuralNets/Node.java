@@ -69,7 +69,7 @@ public class Node {
      * Recieve the trigger, do something with it
      */
     public void recieveTrigger (double power) {
-        _totalInput = (_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
+        _totalInput = _totalInput + power;//(_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
         setReady(true);
         //System.out.println("\tTrigger recieved: " + power);
         //System.out.println("\tTotal input is now: " + _totalInput);
