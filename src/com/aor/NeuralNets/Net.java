@@ -19,7 +19,6 @@ public class Net {
 
     /*
      * Populate this net with random stuffs
-     * TODO: Make this do something
      */
     public void generateNet () {
         System.out.println("Generating net, or something");
