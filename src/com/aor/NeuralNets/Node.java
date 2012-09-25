@@ -10,6 +10,14 @@ public class Node {
     protected double _threshold;
     protected double _totalInput;
     protected boolean _ready;
+    
+    public Node () {
+        _op = null;
+        _links = new ArrayList<Link>();
+        _threshold = NeuralNets.generator.nextDouble();
+        _totalInput = 0;
+        _ready = false;
+    }
  
     public Node (NodeOps operation) {
         _op = operation;
