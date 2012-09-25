@@ -63,8 +63,8 @@ public class Node {
     public void recieveTrigger (double power) {
         _totalInput = (_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
         setReady(true);
-        System.out.println("\tTrigger recieved: " + power);
-        System.out.println("\tTotal input is now: " + _totalInput);
+        //System.out.println("\tTrigger recieved: " + power);
+        //System.out.println("\tTotal input is now: " + _totalInput);
 
     }
 
@@ -80,6 +80,7 @@ public class Node {
             link.trigger(_totalInput);
         }
         _totalInput = 0;    //reset input counter
+        setReady(false);
     }
 
 
