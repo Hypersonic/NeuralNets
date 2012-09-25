@@ -60,6 +60,12 @@ public class Node {
                 return input < threshold;
             case EQUALS_TO:
                 return input == threshold;
+            case NOT_EQUALS_TO:
+                return input != threshold;
+            case GREATER_THAN_OR_EQUAL_TO:
+                return input >= threshold;
+            case LESS_THAN_OR_EQUAL_TO:
+                return input <= threshold;
             default:
                 return false;
         }
