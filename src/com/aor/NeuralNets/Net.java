@@ -61,11 +61,14 @@ public class Net {
             secondLayer = new ArrayList<Node>(); //reset the second layer
         }
         
+
+        // TODO: Move this stuff to a run() function, give better stepping control
+
         // Test sending something in
-        double startingInput = 2.0 / NeuralNets.MAX_INPUT;
+        double startingInput = 2.0;
         for (Node input : _inputs) {
             input.recieveTrigger(startingInput);
-            startingInput += 2.0 / NeuralNets.MAX_INPUT;
+            startingInput += 2.0;
         }
         // Store the nodes that are ready so we don't get confused later
         ArrayList<Node> readyNodes = new ArrayList<Node>();

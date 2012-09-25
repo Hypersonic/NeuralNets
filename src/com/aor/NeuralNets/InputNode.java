@@ -18,7 +18,7 @@ public class InputNode extends Node {
 
     public void sendTrigger() {
         for (Link link : _links) {
-            link.trigger(_totalInput);
+            link.trigger(_totalInput) / NeuralNets.MAX_INPUT; // Normalize the input
         }
         _totalInput = 0;    //reset input counter
         setReady(false);
