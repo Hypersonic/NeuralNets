@@ -7,12 +7,14 @@ public class Net {
 
     private ArrayList<Node> _nodes;
     private ArrayList<Node> _inputs;
+    private ArrayList<Node> _outputs;
     private ArrayList<Link> _links;
     
 
     public Net () {
         _nodes = new ArrayList<Node>();
         _inputs = new ArrayList<Node>();
+        _outputs = new ArrayList<Node>();
         _links = new ArrayList<Link>();
         generateNet();
     }
@@ -61,6 +63,18 @@ public class Net {
             secondLayer = new ArrayList<Node>(); //reset the second layer
         }
         
+        for (int i = 0; i < 1; i++) { //Node node : firstLayer) {
+            OutputNode newOutput = new OutputNode();
+            _outputs.add(newOutput);
+            _nodes.add(newOutput);
+        }
+        for (Node node : firstLayer) {
+            for (Node output : _outputs) {
+                Link newLink = new Link(node, output);
+                _links.add(newLink);
+            }
+        }
+        
 
         // TODO: Move this stuff to a run() function, give better stepping control
 
@@ -77,8 +91,8 @@ public class Net {
                 readyNodes.add(node);
             }
         }
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n\n\n----Activating next layer----");
+        for (int i = 0; i < 6; i++) {
+            System.out.println("----Activating next layer----");
             for (Node node : readyNodes) {
                     //System.out.println("Activating node with:");
                     //System.out.println(node);
