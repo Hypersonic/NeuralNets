@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Node {
 
-    private ArrayList<Link> _links;     // Links this node will trigger
-    private NodeOps _op;
-    private double _threshold;
-    private double _totalInput;
-    private boolean _ready;
+    protected ArrayList<Link> _links;     // Links this node will trigger
+    protected NodeOps _op;
+    protected double _threshold;
+    protected double _totalInput;
+    protected boolean _ready;
  
     public Node (NodeOps operation) {
         _op = operation;

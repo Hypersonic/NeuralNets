@@ -2,9 +2,9 @@ package com.aor.NeuralNets;
 
 public class Link {
 
-    private Node _source;    // The Node that triggers this Link
-    private Node _destination;     // The Node that gets triggered by this Link
-    private double _weight;     //Weight applied to passing signals
+    protected Node _source;    // The Node that triggers this Link
+    protected Node _destination;     // The Node that gets triggered by this Link
+    protected double _weight;     //Weight applied to passing signals
 
     // Constructors
     public Link () {
