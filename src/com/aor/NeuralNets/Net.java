@@ -30,8 +30,7 @@ public class Net {
         
         // populate the first layer
         for (int i = 0; i < 4; i++) {
-            NodeOps OpChoice = NodeOps.values()[NeuralNets.generator.nextInt(NodeOps.values().length)];
-            Node firstNode = new Node(OpChoice);
+            InputNode firstNode = new InputNode();
 
             firstLayer.add(firstNode);
             _inputs.add(firstNode);
@@ -78,8 +77,8 @@ public class Net {
         for (int i = 0; i < 4; i++) {
             System.out.println("\n\n\n----Activating next layer----");
             for (Node node : readyNodes) {
-                    System.out.println("Activating node with:");
-                    System.out.println(node);
+                    //System.out.println("Activating node with:");
+                    //System.out.println(node);
                     node.sendTrigger();
             }
 
