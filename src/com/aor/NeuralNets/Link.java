@@ -28,26 +28,26 @@ public class Link {
     }
 
     // Helper methods
-    public double getWeight() {
+    public double getWeight () {
         return _weight;
     }
-    public void setWeight(double weight) {
+    public void setWeight (double weight) {
         _weight = weight;
     }
 
-    public Node getSource() {
+    public Node getSource () {
         return _source;
     }
-    public void setSource(Node source) {
+    public void setSource (Node source) {
         _source = source;
         _source.addLink(this); // Register with source node
     }
 
 
-    public Node getDestination() {
+    public Node getDestination () {
         return _destination;
     }
-    public void setDestination(Node destination) {
+    public void setDestination (Node destination) {
         _destination = destination;
         _destination.addInput(this); // Register with source node
     }

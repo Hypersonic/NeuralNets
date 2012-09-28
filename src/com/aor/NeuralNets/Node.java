@@ -36,24 +36,24 @@ public class Node {
     }
     
     @Override
-    public String toString() {
+    public String toString () {
         String ans = "";
         ans += "\tOperation: " + _op.name() + "\n";
         ans += "\tThreshold: " + _threshold + "\n";
         return ans;
     }
-    public void addLink(Link newLink) {
+    public void addLink (Link newLink) {
         _links.add(newLink);
     }
 
-    public void addInput(Link newLink) {
+    public void addInput (Link newLink) {
         _inputs.add(newLink);
     }
 
-    public void setReady(boolean ready) {
+    public void setReady (boolean ready) {
         _ready = ready;
     }
-    public boolean getReady() {
+    public boolean getReady () {
         return _ready;
     }
 

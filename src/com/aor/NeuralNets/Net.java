@@ -78,7 +78,7 @@ public class Net {
     
     }
 
-    public void runNet() {
+    public void runNet () {
         // Test sending something in
         double startingInput = NeuralNets.generator.nextInt(1000);
         for (Node input : _inputs) {
