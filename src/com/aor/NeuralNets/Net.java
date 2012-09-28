@@ -17,6 +17,7 @@ public class Net {
         _outputs = new ArrayList<Node>();
         _links = new ArrayList<Link>();
         generateNet();
+        runNet();
     }
 
     /*
@@ -74,16 +75,20 @@ public class Net {
                 _links.add(newLink);
             }
         }
-        
+    
+    }
 
-        // TODO: Move this stuff to a run() function, give better stepping control
-
+    public void runNet() {
         // Test sending something in
-        double startingInput = 2.0;
+        double startingInput = NeuralNets.generator.nextInt(1000);
         for (Node input : _inputs) {
             input.recieveTrigger(startingInput);
             startingInput += 2.0;
         }
+
+        double targetValue = startingInput; // Value we want as output.
+        
+        
         // Store the nodes that are ready so we don't get confused later
         ArrayList<Node> readyNodes = new ArrayList<Node>();
         for (Node node : _nodes) {
@@ -105,12 +110,8 @@ public class Net {
                     readyNodes.add(node);
                 }
             }
-
         }
 
-    
-    
     }
-
     
 }
