@@ -16,12 +16,14 @@ public class Link {
         _source = sourceNode;
         _source.addLink(this); // Register with source node
         _destination = destinationNode;
+        _destination.addInput(this); // Register with source node
         _weight = NeuralNets.generator.nextDouble();
     }
     public Link (Node sourceNode, Node destinationNode, double weight) {
         _source = sourceNode;
         _source.addLink(this); // Register with source node
         _destination = destinationNode;
+        _destination.addInput(this); // Register with source node
         _weight = weight;
     }
 
@@ -47,6 +49,7 @@ public class Link {
     }
     public void setDestination(Node destination) {
         _destination = destination;
+        _destination.addInput(this); // Register with source node
     }
 
 

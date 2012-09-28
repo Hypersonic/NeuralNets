@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Node {
 
+    protected ArrayList<Link> _inputs;
     protected ArrayList<Link> _links;     // Links this node will trigger
     protected NodeOps _op;
     protected double _threshold;
@@ -43,6 +44,10 @@ public class Node {
     }
     public void addLink(Link newLink) {
         _links.add(newLink);
+    }
+
+    public void addInput(Link newLink) {
+        _inputs.add(newLink);
     }
 
     public void setReady(boolean ready) {
