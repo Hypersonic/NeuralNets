@@ -10,21 +10,17 @@ public class Link {
     public Link () {
         _source = null;
         _destination = null;
-        _weight = NeuralNets.generator.nextDouble();
+        _weight = (NeuralNets.generator.nextDouble() * 2) - 1;
+        System.out.println("Weight: " + _weight);
     }
     public Link (Node sourceNode, Node destinationNode) {
-        _source = sourceNode;
-        _source.addLink(this); // Register with source node
-        _destination = destinationNode;
-        _destination.addInput(this); // Register with source node
-        _weight = NeuralNets.generator.nextDouble();
+        this();
+        setSource(sourceNode);
+        setDestination(destinationNode);
     }
     public Link (Node sourceNode, Node destinationNode, double weight) {
-        _source = sourceNode;
-        _source.addLink(this); // Register with source node
-        _destination = destinationNode;
-        _destination.addInput(this); // Register with source node
-        _weight = weight;
+        this(sourceNode, destinationNode);
+        setWeight(weight);
     }
 
     // Helper methods
@@ -33,6 +29,12 @@ public class Link {
     }
     public void setWeight (double weight) {
         _weight = weight;
+        //while (_weight > 1) {
+            //_weight = _weight % 1;
+        //}
+        //while (_weight < -1) {
+            //_weight = _weight % 1;
+        //}
     }
 
     public Node getSource () {

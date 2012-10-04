@@ -11,33 +11,42 @@ public class Node {
     protected double _threshold;
     protected double _totalInput;
     protected boolean _ready;
+    protected int _id;
     
     public Node () {
         _op = null;
         _links = new ArrayList<Link>();
+        _inputs = new ArrayList<Link>();
         _threshold = NeuralNets.generator.nextDouble();
         _totalInput = 0;
         _ready = false;
+        _id = 0;
+    }
+    public Node (int id) {
+        this();
+        _id = id;
     }
  
     public Node (NodeOps operation) {
+        this();
         _op = operation;
-        _links = new ArrayList<Link>();
-        _threshold = NeuralNets.generator.nextDouble();
-        _totalInput = 0;
-        _ready = false;
     }
-    public Node (NodeOps operation, ArrayList<Link> destinations, double threshold) {
+
+    public Node (int id, NodeOps operation) {
+        this(id);
         _op = operation;
+    }
+
+    public Node (int id, NodeOps operation, ArrayList<Link> destinations, double threshold) {
+        this(id, operation);
         _links = destinations;
         _threshold = threshold;
-        _totalInput = 0;
-        _ready = false;
     }
     
     @Override
     public String toString () {
         String ans = "";
+        ans += "\tID: " + _id + "\n";
         ans += "\tOperation: " + _op.name() + "\n";
         ans += "\tThreshold: " + _threshold + "\n";
         return ans;
@@ -49,12 +58,19 @@ public class Node {
     public void addInput (Link newLink) {
         _inputs.add(newLink);
     }
+    public ArrayList<Link> getInputs () {
+        return _inputs;
+    }
 
     public void setReady (boolean ready) {
         _ready = ready;
     }
     public boolean getReady () {
         return _ready;
+    }
+    
+    public int getId () {
+        return _id;
     }
 
     private boolean doOp (NodeOps op, double threshold, double input) {
@@ -80,7 +96,8 @@ public class Node {
      * Recieve the trigger, do something with it
      */
     public void recieveTrigger (double power) {
-        _totalInput = _totalInput + power;//(_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
+        _totalInput += power;//(_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
+        //System.out.println("Power: " + _totalInput + " From: " + power);
         setReady(true);
         //System.out.println("\tTrigger recieved: " + power);
         //System.out.println("\tTotal input is now: " + _totalInput);
@@ -90,13 +107,13 @@ public class Node {
     public void sendTrigger () {
         double value;
         if (doOp(_op, _threshold, _totalInput)) {
-            value = _totalInput;
+            value = Math.sin(_totalInput);
         } else {
             value = 0;
         }
 
         for (Link link : _links) {
-            link.trigger(_totalInput);
+            link.trigger(value);//_totalInput);
         }
         _totalInput = 0;    //reset input counter
         setReady(false);

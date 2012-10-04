@@ -8,6 +8,12 @@ public class InputNode extends Node {
         _totalInput = 0;
         _ready = false;
         _links = new ArrayList<Link>();
+        _id = 0;
+    }
+
+    public InputNode (int id) {
+        this();
+        _id = id;
     }
 
     public void recieveTrigger (double power) {

@@ -9,14 +9,24 @@ public class OutputNode extends Node {
         _ready = false;
         _links = null;
     }
+    
+    public OutputNode (int id) {
+        this();
+        _id = id;
+    }
 
     public void recieveTrigger (double power) {
-        _totalInput = (_totalInput + power) / 2; // Keep ugly-averaging
+        _totalInput += power;
         setReady(true);
     }
 
     public void sendTrigger () {
-        System.out.println("Output: " + (_totalInput * NeuralNets.MAX_INPUT));
+        _totalInput = _totalInput * NeuralNets.MAX_INPUT;
+        System.out.println("Output: " + _totalInput);
         setReady(false);
+    }
+
+    public double getOutput () {
+        return _totalInput;
     }
 }
