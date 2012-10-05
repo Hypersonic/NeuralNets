@@ -16,6 +16,11 @@ public class InputNode extends Node {
         _id = id;
     }
 
+    public InputNode clone (InputNode original) {
+        InputNode clone = new InputNode(getId());
+        return clone;
+    }
+
     public void recieveTrigger (double power) {
         _totalInput = power;
         setReady(true);

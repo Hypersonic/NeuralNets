@@ -8,11 +8,17 @@ public class OutputNode extends Node {
         _totalInput = 0;
         _ready = false;
         _links = null;
+        _id = 0;
     }
     
     public OutputNode (int id) {
         this();
         _id = id;
+    }
+
+    public OutputNode clone (OutputNode original) {
+        OutputNode clone = new OutputNode(getId());
+        return clone;
     }
 
     public void recieveTrigger (double power) {
