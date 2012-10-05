@@ -22,13 +22,9 @@ public class Net {
         _topId = 0;
         _netLength = 4;
         _netWidth = 4;
-        generateNet();
-        //for (int i = 0; i < 10; i++) {
-            runNet();
-        //}
     }
 
-    public Net clone (Net original) {
+    public Net clone () {
         Net newNet = new Net();
     
         //first the simple variables
@@ -37,13 +33,30 @@ public class Net {
 
         //then, lets clone all the nodes...
         for (Node node : getNodes()) {
-            newNet.add(node.clone());
+            newNet.addNode(node.clone());
         }
         // And then clone inputs/outputs
-        for (InputNode node : _inputs) {
-            _
+        for (InputNode node : getInputs()) {
+            newNet.addInput(node);
+        }
+        for (OutputNode node : getOutputs()) {
+            newNet.addOutput(node);
+        }
+        
+        // Clone the links, matching source and destination with corresponding IDs
+        for (Link link : getLinks()) {
+            Node source = newNet.getNodeForId(link.getSource().getId());
+            Node dest = newNet.getNodeForId(link.getDestination().getId());
+            newNet.addLink(link.clone(source, dest));
         }
 
+        //System.out.println("COMPARISION TIME!");
+        //System.out.println("Links: ");
+        //for (int i = 0; i < _links.size(); i++){
+            //System.out.println(_links.get(i).getWeight() + " =? " + newNet.getLinks().get(i).getWeight());
+        //}
+        
+        return newNet;
     }
 
     /*
@@ -62,7 +75,7 @@ public class Net {
             InputNode firstNode = new InputNode(getNextId());
 
             firstLayer.add(firstNode);
-            _inputs.add(firstNode);
+            addInput(firstNode);
             addNode(firstNode);
     
         }
@@ -92,7 +105,7 @@ public class Net {
         
         for (int i = 0; i < 1; i++) { //Node node : firstLayer) {
             OutputNode newOutput = new OutputNode(getNextId());
-            _outputs.add(newOutput);
+            addOutput(newOutput);
             addNode(newOutput);
         }
         for (Node node : firstLayer) {
@@ -106,7 +119,7 @@ public class Net {
 
     public void runNet () {
         // Test sending something in
-        double startingInput = NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
+        double startingInput = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
         double workingInput = startingInput;
         for (Node input : _inputs) {
             input.recieveTrigger(workingInput);
@@ -171,8 +184,21 @@ public class Net {
         return _topId;
     }
 
+    /*
+     * Gets a node with matching ID in this net
+     * TODO: Make this faster and better
+     */
+    public Node getNodeForId (int Id) {
+        for (Node node : getNodes()) {
+            if (node.getId() == Id) return node;
+        }
+        return null;
+    }
+
+    // Getters/Setters
+    
     public int getWidth () {
-        return _netWidth;
+       return _netWidth;
     }
     public void setWidth (int width) {
         _netWidth = width;
@@ -206,5 +232,11 @@ public class Net {
         _outputs.add(node);
     }
 
+    public ArrayList<Link> getLinks () {
+        return _links;
+    }
+    public void addLink (Link link) {
+        getLinks().add(link);
+    }
 
 }
