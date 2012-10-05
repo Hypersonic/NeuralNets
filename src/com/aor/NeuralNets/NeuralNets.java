@@ -10,6 +10,9 @@ public class NeuralNets {
     public static void main (String[] args) {
         System.out.println("MAX_INPUT: " + MAX_INPUT);
         Net mainNet = new Net();
+        mainNet.generateNet();
+        //mainNet.runNet();
+        mainNet.clone();
     }
 
 }
