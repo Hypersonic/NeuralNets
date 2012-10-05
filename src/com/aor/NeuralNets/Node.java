@@ -37,11 +37,29 @@ public class Node {
         _op = operation;
     }
 
-    public Node (int id, NodeOps operation, ArrayList<Link> destinations, double threshold) {
+    public Node (int id, NodeOps operation, double threshold) {
         this(id, operation);
-        _links = destinations;
         _threshold = threshold;
     }
+
+    public Node (int id, NodeOps operation, ArrayList<Link> destinations, double threshold) {
+        this(id, operation, threshold);
+        _links = destinations;
+    }
+
+    
+    /* 
+     * Cloning method, returns a "copy" of this Node.
+     * This copy contains:
+     *       The same ID number
+     *       The same operation
+     *       The same threshold
+     */
+    public Node clone () {
+        Node clone = new Node(_id, _op, _threshold);
+        return clone;
+    }
+
     
     @Override
     public String toString () {
