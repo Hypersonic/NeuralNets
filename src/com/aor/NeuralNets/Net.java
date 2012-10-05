@@ -20,8 +20,8 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        _netLength = 4;
-        _netWidth = 4;
+        _netLength = 100;
+        _netWidth = 100;
     }
 
     public Net clone () {
@@ -180,9 +180,10 @@ public class Net {
 
     /*
      * Gets a node with matching ID in this net
-     * TODO: Make this faster and better
      */
     public Node getNodeForId (int Id) {
+        Node testNode = getNodes().get(Id - 1);
+        if (testNode.getId() == Id) return testNode;
         for (Node node : getNodes()) {
             if (node.getId() == Id) return node;
         }
