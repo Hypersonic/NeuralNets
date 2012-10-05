@@ -13,6 +13,10 @@ public class Link {
         _weight = (NeuralNets.generator.nextDouble() * 2) - 1;
         System.out.println("Weight: " + _weight);
     }
+    public Link (double weight) {
+        this();
+        setWeight(weight);
+    }
     public Link (Node sourceNode, Node destinationNode) {
         this();
         setSource(sourceNode);
@@ -28,6 +32,10 @@ public class Link {
      * Clones the following information:
      *      Weight
      */
+    public Link clone () {
+        Link newLink = new Link(getWeight());
+        return newLink;
+    }
 
     // Helper methods
     public double getWeight () {
