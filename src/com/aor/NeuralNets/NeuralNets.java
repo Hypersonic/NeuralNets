@@ -11,8 +11,11 @@ public class NeuralNets {
         System.out.println("MAX_INPUT: " + MAX_INPUT);
         Net mainNet = new Net();
         mainNet.generateNet();
-        //mainNet.runNet();
-        mainNet.clone();
+        System.out.println("--------Running main net...--------");
+        mainNet.runNet();
+        Net cloneNet = mainNet.clone();
+        System.out.println("--------Running clone net...--------");
+        cloneNet.runNet();
     }
 
 }
