@@ -183,7 +183,7 @@ public class Net {
      */
     public Node getNodeForId (int Id) {
         Node testNode = getNodes().get(Id - 1);
-        if (testNode.getId() == Id) return testNode;
+        if (testNode.getId() == Id) return testNode; // Do a sane lookup at the location where the Node is almost garunteed to be. Otherwise, search through the whole list for it.
         for (Node node : getNodes()) {
             if (node.getId() == Id) return node;
         }
