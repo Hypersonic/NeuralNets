@@ -56,8 +56,7 @@ public class Node {
      *       The same threshold
      */
     public Node clone () {
-        Node clone = new Node(_id, _op, _threshold);
-        return clone;
+        return new Node(_id, _op, _threshold);
     }
 
     
@@ -114,24 +113,17 @@ public class Node {
      * Recieve the trigger, do something with it
      */
     public void recieveTrigger (double power) {
-        _totalInput += power;//(_totalInput + power) / 2; // Really ugly way of "averaging" the terms, I should be shot for this
-        //System.out.println("Power: " + _totalInput + " From: " + power);
+        _totalInput += power;
         setReady(true);
-        //System.out.println("\tTrigger recieved: " + power);
-        //System.out.println("\tTotal input is now: " + _totalInput);
-
     }
 
     public void sendTrigger () {
         double value;
-        if (doOp(_op, _threshold, _totalInput)) {
-            value = Math.sin(_totalInput);
-        } else {
-            value = 0;
-        }
+        if (doOp(_op, _threshold, _totalInput)) value = Math.sin(_totalInput); // sin to bring it from -1 to 1
+        else value = 0;
 
         for (Link link : _links) {
-            link.trigger(value);//_totalInput);
+            link.trigger(value);
         }
         _totalInput = 0;    //reset input counter
         setReady(false);
