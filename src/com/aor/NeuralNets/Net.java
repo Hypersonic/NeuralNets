@@ -20,8 +20,8 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        _netLength = 100;
-        _netWidth = 100;
+        _netLength = 12;
+        _netWidth = 12;
     }
 
     public Net clone () {
@@ -174,7 +174,7 @@ public class Net {
     
     public int getNextId() {
         _topId++;
-        System.out.println("Assigning ID: " + _topId);
+        //System.out.println("Assigning ID: " + _topId);
         return _topId;
     }
 
