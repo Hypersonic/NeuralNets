@@ -50,12 +50,6 @@ public class Net {
             newNet.addLink(link.clone(source, dest));
         }
 
-        //System.out.println("COMPARISION TIME!");
-        //System.out.println("Links: ");
-        //for (int i = 0; i < _links.size(); i++){
-            //System.out.println(_links.get(i).getWeight() + " =? " + newNet.getLinks().get(i).getWeight());
-        //}
-        
         return newNet;
     }
 
