@@ -22,6 +22,12 @@ public class Link {
         this(sourceNode, destinationNode);
         setWeight(weight);
     }
+    
+    /*
+     * Cloning method
+     * Clones the following information:
+     *      Weight
+     */
 
     // Helper methods
     public double getWeight () {
