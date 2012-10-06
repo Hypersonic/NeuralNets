@@ -17,8 +17,7 @@ public class OutputNode extends Node {
     }
 
     public OutputNode clone (OutputNode original) {
-        OutputNode clone = new OutputNode(getId());
-        return clone;
+        return new OutputNode(getId());
     }
 
     public void recieveTrigger (double power) {

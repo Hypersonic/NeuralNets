@@ -17,8 +17,7 @@ public class InputNode extends Node {
     }
 
     public InputNode clone (InputNode original) {
-        InputNode clone = new InputNode(getId());
-        return clone;
+        return new InputNode(getId());
     }
 
     public void recieveTrigger (double power) {
