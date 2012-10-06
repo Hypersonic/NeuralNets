@@ -86,6 +86,13 @@ public class Node {
         return _ready;
     }
     
+    public double getThreshold () {
+        return _threshold;
+    }
+    public void setThreshold (double threshold) {
+        _threshold = threshold;
+    }
+    
     public int getId () {
         return _id;
     }
