@@ -56,7 +56,8 @@ public class Node {
      *       The same threshold
      */
     public Node clone () {
-        return new Node(_id, _op, _threshold);
+        Node node = new Node(this._id, this._op, this._threshold);
+        return node;
     }
 
     
@@ -70,6 +71,9 @@ public class Node {
     }
     public void addLink (Link newLink) {
         _links.add(newLink);
+    }
+    public ArrayList<Link> getLinks () {
+        return _links;
     }
 
     public void addInput (Link newLink) {
@@ -129,6 +133,7 @@ public class Node {
         if (doOp(_op, _threshold, _totalInput)) value = Math.sin(_totalInput); // sin to bring it from -1 to 1
         else value = 0;
 
+        //System.out.println("Value: " + value);
         for (Link link : _links) {
             link.trigger(value);
         }

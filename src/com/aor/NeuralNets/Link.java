@@ -42,9 +42,12 @@ public class Link {
      *      Destination Node
      */
     public Link clone (Node sourceNode, Node destinationNode) {
-       return new Link(sourceNode, destinationNode, getWeight());
+        return new Link(sourceNode, destinationNode, getWeight());
     }
 
+    public String toString () {
+        return "Weight " + getWeight();
+    }
 
     // Helper methods
     public double getWeight () {
@@ -74,6 +77,10 @@ public class Link {
      * Triggers the next node with an amount of input power, multiplied by this link's weight
      */
     public void trigger (double power) {
+        //System.out.println("Link triggered:\n" + 
+                           //"\tPower: " + power + "\n" +
+                           //"\tWeight: " + _weight + "\n" +
+                           //"\tValue: " + (power * _weight));
         _destination.recieveTrigger(power * _weight);
     }
     

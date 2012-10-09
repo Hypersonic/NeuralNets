@@ -8,6 +8,7 @@ public class InputNode extends Node {
         _totalInput = 0;
         _ready = false;
         _links = new ArrayList<Link>();
+        _inputs = new ArrayList<Link>();
         _id = 0;
     }
 
@@ -16,10 +17,17 @@ public class InputNode extends Node {
         _id = id;
     }
 
-    public InputNode clone (InputNode original) {
+    public InputNode clone () {
         return new InputNode(getId());
     }
 
+    @Override
+    public String toString () {
+        String ans = "";
+        ans += "\tID: " + _id + "\n";
+        ans += "\tOperation: Input \n";
+        return ans;
+    }
     public void recieveTrigger (double power) {
         _totalInput = power;
         setReady(true);

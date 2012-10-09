@@ -8,6 +8,7 @@ public class OutputNode extends Node {
         _totalInput = 0;
         _ready = false;
         _links = null;
+        _inputs = new ArrayList<Link>();
         _id = 0;
     }
     
@@ -16,8 +17,16 @@ public class OutputNode extends Node {
         _id = id;
     }
 
-    public OutputNode clone (OutputNode original) {
+    public OutputNode clone () {
         return new OutputNode(getId());
+    }
+    
+    @Override
+    public String toString () {
+        String ans = "";
+        ans += "\tID: " + _id + "\n";
+        ans += "\tOperation: Output \n";
+        return ans;
     }
 
     public void recieveTrigger (double power) {

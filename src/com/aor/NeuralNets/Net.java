@@ -20,35 +20,34 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        _netLength = 12;
-        _netWidth = 12;
+        _netLength = 4;
+        _netWidth = 4;
     }
 
     public Net clone () {
         Net newNet = new Net();
     
         //first the simple variables
-        newNet.setLength(getLength());
-        newNet.setWidth(getWidth());
+        newNet.setLength(this.getLength());
+        newNet.setWidth(this.getWidth());
 
         //then, lets clone all the nodes...
-        for (Node node : getNodes()) {
-            newNet.addNode(node.clone());
-        }
-        // And then clone inputs/outputs
-        for (InputNode node : getInputs()) {
-            newNet.addInput(node);
-        }
-        for (OutputNode node : getOutputs()) {
-            newNet.addOutput(node);
+        for (Node node : this.getNodes()) {
+            Node newNode = node.clone();
+            newNet.addNode(newNode);
+            // if it's an input or an output, put it in the right place
+            if (newNode instanceof InputNode) newNet.addInput((InputNode) newNode);
+            if (newNode instanceof OutputNode) newNet.addOutput((OutputNode) newNode);
         }
         
         // Clone the links, matching source and destination with corresponding IDs
-        for (Link link : getLinks()) {
+        for (Link link : this.getLinks()) {
             Node source = newNet.getNodeForId(link.getSource().getId());
             Node dest = newNet.getNodeForId(link.getDestination().getId());
-            newNet.addLink(link.clone(source, dest));
+            Link newLink = link.clone(source, dest);
+            newNet.addLink(newLink);
         }
+
 
         return newNet;
     }
@@ -115,7 +114,7 @@ public class Net {
         // Test sending something in
         double startingInput = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
         double workingInput = startingInput;
-        for (Node input : _inputs) {
+        for (InputNode input : _inputs) {
             input.recieveTrigger(workingInput);
             workingInput += 2.0;
         }
@@ -151,16 +150,16 @@ public class Net {
         // Well, lets see if we can optimize this net. 
         // TODO: Switch to evolutionary method.
         if (output != targetValue) {
-            double delta = targetValue - output;
-            double gradient = delta * startingInput;
-            System.out.println("Target: " + targetValue);
-            System.out.println("Delta: " + delta);
-            System.out.println("Gradient: " + gradient);
-            ArrayList<Link> links = _outputs.get(0).getInputs();
+            //double delta = targetValue - output;
+            //double gradient = delta * startingInput;
+            //System.out.println("Target: " + targetValue);
+            //System.out.println("Delta: " + delta);
+            //System.out.println("Gradient: " + gradient);
+            //ArrayList<Link> links = _outputs.get(0).getInputs();
 
-            for (Link link : _links) {
-                link.setWeight( link.getWeight() + delta );
-            }
+            //for (Link link : _links) {
+                //link.setWeight( link.getWeight() + delta );
+            //}
 
             System.out.println("Output from net: " + output);
         }
@@ -169,12 +168,23 @@ public class Net {
     }
 
 
+    /*
+     * Alter this net randomly
+     */
+    public void mutate () {
+        for (Node node : getNodes()) {
+            node.setThreshold(node.getThreshold() * NeuralNets.generator.nextGaussian());
+        }
+         
+        for (Link link : _links) {
+            link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
+        }
+    }
 
     // Helper methods
     
     public int getNextId() {
         _topId++;
-        //System.out.println("Assigning ID: " + _topId);
         return _topId;
     }
 
@@ -183,7 +193,7 @@ public class Net {
      */
     public Node getNodeForId (int Id) {
         Node testNode = getNodes().get(Id - 1);
-        if (testNode.getId() == Id) return testNode; // Do a sane lookup at the location where the Node is almost garunteed to be. Otherwise, search through the whole list for it.
+        if (testNode.getId() == Id) return testNode; // Do a sane lookup
         for (Node node : getNodes()) {
             if (node.getId() == Id) return node;
         }
