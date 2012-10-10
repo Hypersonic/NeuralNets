@@ -48,6 +48,7 @@ public class Net {
             newNet.addLink(newLink);
         }
 
+        newNet.setTopId(this._topId);
 
         return newNet;
     }
@@ -173,17 +174,20 @@ public class Net {
      */
     public void mutate () {
         for (Node node : getNodes()) {
-            node.setThreshold(node.getThreshold() * NeuralNets.generator.nextGaussian());
-        }
-         
+            if (NeuralNets.generator.nextBoolean()) {
+                node.setThreshold(node.getThreshold() * NeuralNets.generator.nextGaussian());
+            }
+        }         
         for (Link link : _links) {
-            link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
+            if (NeuralNets.generator.nextBoolean()) {
+                link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
+            }
         }
     }
 
     // Helper methods
     
-    public int getNextId() {
+    public int getNextId () {
         _topId++;
         return _topId;
     }
@@ -202,6 +206,12 @@ public class Net {
 
     // Getters/Setters
     
+    public void setTopId (int Id) {
+        _topId = Id;
+    }
+    public int getTopId () {
+        return _topId;
+    }
     public int getWidth () {
        return _netWidth;
     }
