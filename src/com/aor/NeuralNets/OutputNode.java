@@ -36,7 +36,6 @@ public class OutputNode extends Node {
 
     public void sendTrigger () {
         _totalInput = _totalInput * NeuralNets.MAX_INPUT;
-        System.out.println("Output: " + _totalInput);
         setReady(false);
     }
 
