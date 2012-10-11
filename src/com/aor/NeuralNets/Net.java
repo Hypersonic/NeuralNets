@@ -131,8 +131,6 @@ public class Net {
         while (readyNodes.size() != 0) {
             //System.out.println("----Activating next layer----");
             for (Node node : readyNodes) {
-                    //System.out.println("Activating node with:");
-                    //System.out.println(node);
                     node.sendTrigger();
             }
 
@@ -144,24 +142,9 @@ public class Net {
             }
         }
         
+        // get and print the output
         double output = _outputs.get(0).getOutput();
-        // Well, lets see if we can optimize this net. 
-        // TODO: Switch to evolutionary method.
-        if (output != targetValue) {
-            //double delta = targetValue - output;
-            //double gradient = delta * startingInput;
-            //System.out.println("Target: " + targetValue);
-            //System.out.println("Delta: " + delta);
-            //System.out.println("Gradient: " + gradient);
-            //ArrayList<Link> links = _outputs.get(0).getInputs();
-
-            //for (Link link : _links) {
-                //link.setWeight( link.getWeight() + delta );
-            //}
-
-            System.out.println("Output from net: " + output);
-        }
-
+        System.out.println("Output from net: " + output);
 
     }
 
