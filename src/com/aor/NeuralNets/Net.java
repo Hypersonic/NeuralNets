@@ -173,15 +173,28 @@ public class Net {
      * Alter this net randomly
      */
     public void mutate () {
-        for (Node node : getNodes()) {
-            if (NeuralNets.generator.nextBoolean()) {
-                node.setThreshold(node.getThreshold() * NeuralNets.generator.nextGaussian());
-            }
-        }         
-        for (Link link : _links) {
-            if (NeuralNets.generator.nextBoolean()) {
-                link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
-            }
+        //Our start/end values for the set of node ids we want to mutate
+        int topEnd = NeuralNets.generator.nextInt(this.getTopId()) + 1;
+        System.out.println("Top Node: " + topEnd);
+        int bottomEnd = NeuralNets.generator.nextInt(topEnd) + 1;
+        System.out.println("Bot Node: " + bottomEnd);
+
+        ArrayList<Node> alteredNodes = new ArrayList<Node>();
+        for (int i = bottomEnd; i < topEnd; i++) {
+            alteredNodes.add(this.getNodeForId(i));
+        }
+
+        for (Node node : alteredNodes) {
+            node.setThreshold(node.getThreshold() + NeuralNets.generator.nextGaussian());
+        }
+
+        int topLink = NeuralNets.generator.nextInt(getLinks().size());
+        System.out.println("Top Link: " + topLink);
+        int bottomLink = NeuralNets.generator.nextInt(topLink) + 1;
+        System.out.println("Bottom Link: " + bottomLink);
+        for (int i = bottomLink; i < topLink; i++) {
+            Link link = getLinks().get(i);
+            link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
         }
     }
 
