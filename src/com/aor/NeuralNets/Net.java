@@ -57,9 +57,6 @@ public class Net {
      * Populate this net with random stuffs
      */
     public void generateNet () {
-        System.out.println("Generating net, or something");
-        
-        // 4, 4, link, do four times
 
         ArrayList<Node> firstLayer = new ArrayList<Node>();
         ArrayList<Node> secondLayer = new ArrayList<Node>();
@@ -132,7 +129,7 @@ public class Net {
             }
         }
         while (readyNodes.size() != 0) {
-            System.out.println("----Activating next layer----");
+            //System.out.println("----Activating next layer----");
             for (Node node : readyNodes) {
                     //System.out.println("Activating node with:");
                     //System.out.println(node);
