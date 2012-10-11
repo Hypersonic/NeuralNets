@@ -15,9 +15,11 @@ public class NeuralNets {
         mainNet.runNet();
         System.out.println("------Cloning------");
         Net cloneNet = mainNet.clone();
-//        cloneNet.mutate();
+        cloneNet.mutate();
         System.out.println("--------Running clone net...--------");
         cloneNet.runNet();
-    }
+        double first = mainNet.getOutputs().get(0).getOutput();
+        double second = cloneNet.getOutputs().get(0).getOutput();
 
+    }
 }
