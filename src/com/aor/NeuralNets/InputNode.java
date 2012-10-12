@@ -31,7 +31,7 @@ public class InputNode extends Node {
     public void recieveTrigger (double power) {
         _totalInput = power;
         setReady(true);
-        System.out.println("InputNode recieved input of value: " + power);
+        //System.out.println("InputNode recieved input of value: " + power);
     }
 
     public void sendTrigger () {
