@@ -119,6 +119,18 @@ public class Node {
                 return input >= threshold;
             case LESS_THAN_OR_EQUAL_TO:
                 return input <= threshold;
+            case ADDITION:
+                _totalInput += (threshold / NeuralNets.MAX_INPUT);
+                return true;
+            case SUBTRACTION:
+                _totalInput -= (threshold / NeuralNets.MAX_INPUT);
+                return true;
+            case MULTIPLICATION:
+                _totalInput = _totalInput * (threshold / NeuralNets.MAX_INPUT);
+                return true;
+            case DIVISION:
+                _totalInput = _totalInput / (threshold / NeuralNets.MAX_INPUT);
+                return true;
             default:
                 return false;
         }
@@ -134,7 +146,7 @@ public class Node {
 
     public void sendTrigger () {
         double value;
-        if (doOp(_op, _threshold, _totalInput)) value = Math.sin(_totalInput); // sin to bring it from -1 to 1
+        if (doOp(_op, _threshold, _totalInput)) value = _totalInput;//Math.sin(_totalInput); // sin to bring it from -1 to 1
         else value = 0;
 
         //System.out.println("Value: " + value);
