@@ -108,18 +108,14 @@ public class Net {
     
     }
 
-    public double runNet () {
-        // Test sending something in
-        double startingInput = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
-        double workingInput = startingInput;
+    public double runNet (double expectedOutput) {
+
+        double inputDelta = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
+        double workingInput = expectedOutput;
         for (InputNode input : _inputs) {
+            workingInput -= 2.0;
             input.recieveTrigger(workingInput);
-            workingInput += 2.0;
         }
-        
-        
-        double targetValue = workingInput; // Value we want as output.
-        System.out.println("Target: " + targetValue);
         
         // Store the nodes that are ready so we don't get confused later
         ArrayList<Node> readyNodes = new ArrayList<Node>();
@@ -144,7 +140,7 @@ public class Net {
         
         // get and print the output
         double output = _outputs.get(0).getOutput();
-        System.out.println("Output from net: " + output);
+        //System.out.println("Output from net: " + output);
         return output;
 
     }
@@ -164,9 +160,9 @@ public class Net {
     public void mutate () {
         //Our start/end values for the set of node ids we want to mutate
         int topEnd = NeuralNets.generator.nextInt(this.getTopId()) + 1;
-        System.out.println("Top Node: " + topEnd);
+        //System.out.println("Top Node: " + topEnd);
         int bottomEnd = NeuralNets.generator.nextInt(topEnd) + 1;
-        System.out.println("Bot Node: " + bottomEnd);
+        //System.out.println("Bot Node: " + bottomEnd);
 
         ArrayList<Node> alteredNodes = new ArrayList<Node>();
         for (int i = bottomEnd; i < topEnd; i++) {
@@ -177,13 +173,13 @@ public class Net {
             node.setThreshold(node.getThreshold() + NeuralNets.generator.nextGaussian());
         }
 
-        int topLink = NeuralNets.generator.nextInt(getLinks().size());
-        System.out.println("Top Link: " + topLink);
+        int topLink = NeuralNets.generator.nextInt(getLinks().size()) + 1;
+        //System.out.println("Top Link: " + topLink);
         int bottomLink = NeuralNets.generator.nextInt(topLink) + 1;
-        System.out.println("Bottom Link: " + bottomLink);
+        //System.out.println("Bottom Link: " + bottomLink);
         for (int i = bottomLink; i < topLink; i++) {
             Link link = getLinks().get(i);
-            link.setWeight(link.getWeight() * NeuralNets.generator.nextGaussian());
+            link.setWeight(link.getWeight() + NeuralNets.generator.nextGaussian());
         }
     }
 
