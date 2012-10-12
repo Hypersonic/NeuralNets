@@ -3,6 +3,7 @@ package com.aor.NeuralNets;
 import java.util.ArrayList;
 
 public class OutputNode extends Node {
+    private int _triggersRecieved;
 
     public OutputNode () {
         _totalInput = 0;
@@ -10,6 +11,7 @@ public class OutputNode extends Node {
         _links = null;
         _inputs = new ArrayList<Link>();
         _id = 0;
+        _triggersRecieved = 0;
     }
     
     public OutputNode (int id) {
@@ -31,11 +33,13 @@ public class OutputNode extends Node {
 
     public void recieveTrigger (double power) {
         _totalInput += power;
+        _triggersRecieved++;
         setReady(true);
     }
 
     public void sendTrigger () {
-        _totalInput = _totalInput * NeuralNets.MAX_INPUT;
+        _totalInput = (_totalInput / _triggersRecieved) * NeuralNets.MAX_INPUT; //average and normalize
+        _triggersRecieved = 0;
         setReady(false);
     }
 
