@@ -108,7 +108,7 @@ public class Net {
     
     }
 
-    public void runNet () {
+    public double runNet () {
         // Test sending something in
         double startingInput = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
         double workingInput = startingInput;
@@ -145,6 +145,7 @@ public class Net {
         // get and print the output
         double output = _outputs.get(0).getOutput();
         System.out.println("Output from net: " + output);
+        return output;
 
     }
 
