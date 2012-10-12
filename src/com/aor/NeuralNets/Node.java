@@ -101,6 +101,10 @@ public class Node {
         return _id;
     }
 
+    public void clear () {
+        _totalInput = 0;
+    }
+
     private boolean doOp (NodeOps op, double threshold, double input) {
         switch (op) {
             case GREATER_THAN:

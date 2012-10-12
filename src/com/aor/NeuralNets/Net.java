@@ -149,6 +149,14 @@ public class Net {
 
     }
 
+    /*
+     * Reset all stored values
+     */
+    public void reset () {
+        for (Node node : getNodes()) {
+            node.clear();
+        }
+    }
 
     /*
      * Alter this net randomly
