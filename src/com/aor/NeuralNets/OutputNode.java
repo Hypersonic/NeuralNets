@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class OutputNode extends Node {
     private int _triggersRecieved;
+    private double _lastOutput;
 
     public OutputNode () {
         _totalInput = 0;
@@ -12,6 +13,7 @@ public class OutputNode extends Node {
         _inputs = new ArrayList<Link>();
         _id = 0;
         _triggersRecieved = 0;
+        _lastOutput = 0;
     }
     
     public OutputNode (int id) {
@@ -38,12 +40,13 @@ public class OutputNode extends Node {
     }
 
     public void sendTrigger () {
-        _totalInput = (_totalInput / _triggersRecieved) * NeuralNets.MAX_INPUT; //average and normalize
+        _lastOutput = (_totalInput / _triggersRecieved) * NeuralNets.MAX_INPUT; //average and normalize
+        _totalInput = 0;
         _triggersRecieved = 0;
         setReady(false);
     }
 
     public double getOutput () {
-        return _totalInput;
+        return _lastOutput;
     }
 }
