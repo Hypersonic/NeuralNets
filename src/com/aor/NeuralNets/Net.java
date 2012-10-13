@@ -157,7 +157,7 @@ public class Net {
     /*
      * Alter this net randomly
      */
-    public void mutate () {
+    public void mutate (double intensity) {
         //Our start/end values for the set of node ids we want to mutate
         int topEnd = NeuralNets.generator.nextInt(this.getTopId()) + 1;
         //System.out.println("Top Node: " + topEnd);
@@ -170,7 +170,7 @@ public class Net {
         }
 
         for (Node node : alteredNodes) {
-            node.setThreshold(node.getThreshold() + NeuralNets.generator.nextGaussian());
+            node.setThreshold(node.getThreshold() + (NeuralNets.generator.nextGaussian() * intensity));
         }
 
         int topLink = NeuralNets.generator.nextInt(getLinks().size()) + 1;
@@ -179,8 +179,13 @@ public class Net {
         //System.out.println("Bottom Link: " + bottomLink);
         for (int i = bottomLink; i < topLink; i++) {
             Link link = getLinks().get(i);
-            link.setWeight(link.getWeight() + NeuralNets.generator.nextGaussian());
+            link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian() * intensity));
         }
+    }
+
+    // Backwards compatibility stuff, just call mutate with the proper args
+    public void mutate () {
+        mutate(1);
     }
 
     // Helper methods
