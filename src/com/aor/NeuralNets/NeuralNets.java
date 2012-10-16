@@ -41,16 +41,20 @@ public class NeuralNets {
             double firstDelta = Math.abs(expectedOutput - firstOut);
             double secondDelta = Math.abs(expectedOutput - secondOut);
 
-            System.out.println("Expected: " + expectedOutput);
-            System.out.println("\tGot: " + firstOut + " Delta: " + firstDelta);
-            System.out.println("\tGot: " + secondOut + " Delta: " + secondDelta);
+            //System.out.println("Expected: " + expectedOutput);
+            //System.out.println("\tGot: " + firstOut + " Delta: " + firstDelta);
+            //System.out.println("\tGot: " + secondOut + " Delta: " + secondDelta);
 
             if ( secondDelta < firstDelta ) {
+                System.out.println("Net dying, awesomeness of: " + firstNet.awesomeness);
                 firstNet = secondNet;
+                firstDelta = secondDelta;
+                firstOut = secondOut;
             }
             firstNet.reset();
+            firstNet.awesomeness++;
             secondNet = firstNet.clone();
-            secondNet.mutate();
+            secondNet.mutate(firstDelta);
         }
 
         double out = firstNet.runNet(30);

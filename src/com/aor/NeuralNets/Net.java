@@ -12,6 +12,7 @@ public class Net {
     private int _topId;
     private int _netLength;
     private int _netWidth;
+    public int awesomeness;
     
 
     public Net () {
@@ -22,6 +23,7 @@ public class Net {
         _topId = 0;
         _netLength = 4;
         _netWidth = 4;
+        awesomeness = 0;
     }
 
     public Net clone () {
@@ -179,7 +181,7 @@ public class Net {
         //System.out.println("Bottom Link: " + bottomLink);
         for (int i = bottomLink; i < topLink; i++) {
             Link link = getLinks().get(i);
-            link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian() * intensity));
+            link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian()));// + intensity));
         }
     }
 
