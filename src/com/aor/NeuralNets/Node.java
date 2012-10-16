@@ -111,19 +111,19 @@ public class Node {
                 return input > threshold;
             case LESS_THAN:
                 return input < threshold;
-            case EQUALS_TO:
-                return input == threshold;
-            case NOT_EQUALS_TO:
-                return input != threshold;
+            //case EQUALS_TO:
+                //return input == threshold;
+            //case NOT_EQUALS_TO:
+                //return input != threshold;
             case GREATER_THAN_OR_EQUAL_TO:
                 return input >= threshold;
             case LESS_THAN_OR_EQUAL_TO:
                 return input <= threshold;
             case ADDITION:
-                _totalInput += (threshold / NeuralNets.MAX_INPUT);
+                _totalInput = _totalInput + (threshold / NeuralNets.MAX_INPUT);
                 return true;
             case SUBTRACTION:
-                _totalInput -= (threshold / NeuralNets.MAX_INPUT);
+                _totalInput = _totalInput - (threshold / NeuralNets.MAX_INPUT);
                 return true;
             case MULTIPLICATION:
                 _totalInput = _totalInput * (threshold / NeuralNets.MAX_INPUT);
