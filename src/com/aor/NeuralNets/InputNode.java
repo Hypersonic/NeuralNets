@@ -18,7 +18,7 @@ public class InputNode extends Node {
     }
 
     public InputNode clone () {
-        return new InputNode(getId());
+        return new InputNode(this._id);
     }
 
     @Override

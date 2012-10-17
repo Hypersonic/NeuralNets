@@ -22,7 +22,7 @@ public class OutputNode extends Node {
     }
 
     public OutputNode clone () {
-        return new OutputNode(getId());
+        return new OutputNode(this._id);
     }
     
     @Override

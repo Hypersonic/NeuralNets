@@ -21,8 +21,8 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        _netLength = 4;
-        _netWidth = 4;
+        _netLength = 6;
+        _netWidth = 6;
         awesomeness = 0;
     }
 
@@ -30,11 +30,11 @@ public class Net {
         Net newNet = new Net();
     
         //first the simple variables
-        newNet.setLength(this.getLength());
-        newNet.setWidth(this.getWidth());
+        newNet.setLength(this._netLength);
+        newNet.setWidth(this._netWidth);
 
         //then, lets clone all the nodes...
-        for (Node node : this.getNodes()) {
+        for (Node node : this._nodes) {
             Node newNode = node.clone();
             newNet.addNode(newNode);
             // if it's an input or an output, put it in the right place
@@ -43,7 +43,7 @@ public class Net {
         }
         
         // Clone the links, matching source and destination with corresponding IDs
-        for (Link link : this.getLinks()) {
+        for (Link link : this._links) {
             Node source = newNet.getNodeForId(link.getSource().getId());
             Node dest = newNet.getNodeForId(link.getDestination().getId());
             Link newLink = link.clone(source, dest);
@@ -68,8 +68,8 @@ public class Net {
             InputNode firstNode = new InputNode(getNextId());
 
             firstLayer.add(firstNode);
-            addInput(firstNode);
-            addNode(firstNode);
+            _inputs.add(firstNode);
+            _nodes.add(firstNode);
     
         }
         
@@ -82,7 +82,7 @@ public class Net {
                 Node secondNode = new Node(getNextId(), OpChoice);
 
                 secondLayer.add(secondNode);
-                addNode(secondNode);
+                _nodes.add(secondNode);
 
             }
 
@@ -98,8 +98,8 @@ public class Net {
         
         for (int i = 0; i < 1; i++) { //Node node : firstLayer) {
             OutputNode newOutput = new OutputNode(getNextId());
-            addOutput(newOutput);
-            addNode(newOutput);
+            _outputs.add(newOutput);
+            _nodes.add(newOutput);
         }
         for (Node node : firstLayer) {
             for (Node output : _outputs) {
