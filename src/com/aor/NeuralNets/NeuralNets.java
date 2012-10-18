@@ -1,6 +1,7 @@
 package com.aor.NeuralNets;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class NeuralNets {
 
@@ -23,41 +24,65 @@ public class NeuralNets {
         //System.out.println("--------Running clone net...--------");
         //double secondOut = cloneNet.runNet();
 
-        Net firstNet = new Net();
-        firstNet.generateNet();
-
-        Net secondNet = new Net();//firstNet.clone();
-        secondNet.generateNet();
-        //secondNet.mutate();
-
-
-        for (int i = 0; i < 50000; i++) {
+        ArrayList<Net> nets = new ArrayList<Net>();
         
-            double expectedOutput = 10 + (NeuralNets.generator.nextInt(300)*2);//NeuralNets.generator.nextInt(50) * 2;//10;
-            //if (i > 500) expectedOutput = NeuralNets.generator.nextInt(10);        
+        for (int runs = 0; runs < 50; runs++) {
 
-            double firstOut = firstNet.runNet(expectedOutput);
-            double secondOut = secondNet.runNet(expectedOutput);
-            double firstDelta = Math.abs(expectedOutput - firstOut);
-            double secondDelta = Math.abs(expectedOutput - secondOut);
+            Net firstNet = new Net();
+            firstNet.generateNet();
 
-            //System.out.println("Expected: " + expectedOutput);
-            //System.out.println("\tGot: " + firstOut + " Delta: " + firstDelta);
-            //System.out.println("\tGot: " + secondOut + " Delta: " + secondDelta);
+            Net secondNet = new Net();//firstNet.clone();
+            secondNet.generateNet();
+            //secondNet.mutate();
 
-            if ( secondDelta < firstDelta ) {
-                System.out.println("Net dying, awesomeness of: " + firstNet.awesomeness);
-                firstNet = secondNet;
-                firstDelta = secondDelta;
-                firstOut = secondOut;
+
+            for (int i = 0; i < 300000; i++) {
+
+                double expectedOutput = 10 + (NeuralNets.generator.nextInt(300)*2);
+
+                double firstOut = firstNet.runNet(expectedOutput);
+                double secondOut = secondNet.runNet(expectedOutput);
+                double firstDelta = Math.abs(expectedOutput - firstOut);
+                double secondDelta = Math.abs(expectedOutput - secondOut);
+
+                //System.out.println("Expected: " + expectedOutput);
+                //System.out.println("\tGot: " + firstOut + " Delta: " + firstDelta);
+                //System.out.println("\tGot: " + secondOut + " Delta: " + secondDelta);
+
+                if ( secondDelta < firstDelta ) {
+                    //System.out.println("Net dying, awesomeness of: " + firstNet.awesomeness);
+                    firstNet = secondNet;
+                    firstDelta = secondDelta;
+                    firstOut = secondOut;
+                }
+                firstNet.reset();
+                firstNet.awesomeness++;
+                secondNet = firstNet.clone();
+                secondNet.mutate(firstDelta);
             }
-            firstNet.reset();
-            firstNet.awesomeness++;
-            secondNet = firstNet.clone();
-            secondNet.mutate(firstDelta);
+            nets.add(firstNet);
+
+            double out = firstNet.runNet(30);
+            System.out.println("In: 30, Out: " + out);
         }
 
-        double out = firstNet.runNet(30);
-        System.out.println("In: 30, Out: " + out);
+        double closest = Double.MAX_VALUE;
+        Net closestNet = null;
+        for (Net net : nets) {
+            double expected = 30;
+            double out = net.runNet(expected);
+            double delta = Math.abs(expected - out);
+            if (delta < closest) {
+                closest = delta;
+                closestNet = net;
+            }
+
+        }
+
+        System.out.println("\n\n------RESULT-------");
+        for (int i = -100; i < 100; i += 10) {
+            System.out.println("In: " + i + ", Out: " + closestNet.runNet(i));
+        }
+
     }
 }
