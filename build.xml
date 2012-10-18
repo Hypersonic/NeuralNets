@@ -17,6 +17,8 @@
    <manifest file="bin/MANIFEST.MF">
         <attribute name="Main-Class"
             value="com.aor.NeuralNets.NeuralNets" />
+        <attribute name="Created-By"
+            value="Josh Hofing (Hypersonic)" />
    </manifest>
 
 
