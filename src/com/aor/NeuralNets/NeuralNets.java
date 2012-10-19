@@ -36,7 +36,7 @@ public class NeuralNets {
             //secondNet.mutate();
 
 
-            for (int i = 0; i < 300000; i++) {
+            for (int i = 0; i < 3000; i++) {
 
                 double expectedOutput = 10 + (NeuralNets.generator.nextInt(300)*2);
 
