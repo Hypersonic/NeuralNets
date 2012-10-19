@@ -152,9 +152,19 @@ public class Net {
 
     /*
      * Sort the nodes by Id
+     * TODO: Trim the list.
      */
     public void sortNodes () {
         Collections.sort(_nodes, new NodeComparator());
+        
+        //Now trim the list to make sure we can get optimal access.
+        int i = 1; //Because I need normal for loop stuff too, for this...
+        for (Node node : _nodes) {
+            if (node.getId() != i) {
+                node.setId(i);
+            }
+            i++;
+        }
     }
 
     /*

@@ -100,6 +100,9 @@ public class Node {
     public int getId () {
         return _id;
     }
+    public void setId (int id) {
+        _id = id;
+    }
 
     public void clear () {
         _totalInput = 0;

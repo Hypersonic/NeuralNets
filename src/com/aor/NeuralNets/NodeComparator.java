@@ -8,10 +8,12 @@ public class NodeComparator implements Comparator {
     /*
      * Compares two nodes, yo.
      */
-    public int compare (Node a, Node b) {
+    public int compare (Object first, Object second) {
+        Node a = (Node) first;
+        Node b = (Node) second;
         if (a.getId() < b.getId()) return -1;
-        if (a.getId() == b.getId()) return 0;
         if (a.getId() > b.getId()) return 1;
+        return 0;
     }
 
 }
