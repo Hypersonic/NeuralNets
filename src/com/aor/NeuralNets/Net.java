@@ -1,6 +1,7 @@
 package com.aor.NeuralNets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Net {
@@ -51,6 +52,8 @@ public class Net {
         }
 
         newNet.setTopId(this._topId);
+
+        newNet.sortNodes(); //Sort the nodes for more optimal access
 
         return newNet;
     }
@@ -145,6 +148,13 @@ public class Net {
         //System.out.println("Output from net: " + output);
         return output;
 
+    }
+
+    /*
+     * Sort the nodes by Id
+     */
+    public void sortNodes () {
+        Collections.sort(_nodes, new NodeComparator());
     }
 
     /*
