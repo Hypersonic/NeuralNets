@@ -45,10 +45,12 @@ public class Net {
         
         // Clone the links, matching source and destination with corresponding IDs
         for (Link link : this._links) {
-            Node source = newNet.getNodeForId(link.getSource().getId());
-            Node dest = newNet.getNodeForId(link.getDestination().getId());
-            Link newLink = link.clone(source, dest);
-            newNet.addLink(newLink);
+            if (link.getWeight() != 0) { //Dont' clone links with values of 0, I guess...
+                Node source = newNet.getNodeForId(link.getSource().getId());
+                Node dest = newNet.getNodeForId(link.getDestination().getId());
+                Link newLink = link.clone(source, dest);
+                newNet.addLink(newLink);
+            }
         }
 
         newNet.setTopId(this._topId);
@@ -186,9 +188,9 @@ public class Net {
         int bottomEnd = NeuralNets.generator.nextInt(topEnd) + 1;
         //System.out.println("Bot Node: " + bottomEnd);
 
-        ArrayList<Node> alteredNodes = new ArrayList<Node>();
+        Node[] alteredNodes = new Node[topEnd - bottomEnd];
         for (int i = bottomEnd; i < topEnd; i++) {
-            alteredNodes.add(this.getNodeForId(i));
+            alteredNodes[i - bottomEnd] = this.getNodeForId(i);
         }
 
         for (Node node : alteredNodes) {
