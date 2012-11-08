@@ -11,8 +11,6 @@ public class Net {
     private ArrayList<OutputNode> _outputs;
     private ArrayList<Link> _links;
     private int _topId;
-    private int _netLength;
-    private int _netWidth;
     public int awesomeness;
     
 
@@ -22,19 +20,13 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        _netLength = 6;
-        _netWidth = 6;
         awesomeness = 0;
     }
 
     public Net clone () {
         Net newNet = new Net();
-    
-        //first the simple variables
-        newNet.setLength(this._netLength);
-        newNet.setWidth(this._netWidth);
 
-        //then, lets clone all the nodes...
+        //clone all the nodes...
         for (Node node : this._nodes) {
             Node newNode = node.clone();
             newNet.addNode(newNode);
@@ -61,15 +53,23 @@ public class Net {
     }
 
     /*
-     * Populate this net with random stuffs
+     * @deprecated
+     * Old method to generate a net without specifying length and width.
      */
     public void generateNet () {
+        generateNet(6,6);
+    }
+
+    /*
+     * Populate this net with random stuffs
+     */
+    public void generateNet (int length, int width) {
 
         ArrayList<Node> firstLayer = new ArrayList<Node>();
         ArrayList<Node> secondLayer = new ArrayList<Node>();
         
         // populate the first layer
-        for (int i = 0; i < _netWidth; i++) {
+        for (int i = 0; i < width; i++) {
             InputNode firstNode = new InputNode(getNextId());
 
             firstLayer.add(firstNode);
@@ -79,9 +79,9 @@ public class Net {
         }
         
         
-        for (int j = 0; j < _netLength; j++) {
+        for (int j = 0; j < length; j++) {
 
-            for (int i = 0; i < _netWidth; i++) {
+            for (int i = 0; i < width; i++) {
 
                 NodeOps OpChoice = NodeOps.values()[NeuralNets.generator.nextInt(NodeOps.values().length)];
                 Node secondNode = new Node(getNextId(), OpChoice);
@@ -238,19 +238,6 @@ public class Net {
     }
     public int getTopId () {
         return _topId;
-    }
-    public int getWidth () {
-       return _netWidth;
-    }
-    public synchronized void setWidth (int width) {
-        _netWidth = width;
-    }
-
-    public int getLength () {
-        return _netLength;
-    }
-    public synchronized void setLength (int length) {
-        _netLength = length;
     }
 
     public ArrayList<Node> getNodes () {
