@@ -24,9 +24,10 @@ public class NeuralNets {
         //System.out.println("--------Running clone net...--------");
         //double secondOut = cloneNet.runNet();
 
-        ArrayList<Net> nets = new ArrayList<Net>();
+        int numberOfNets = 50;
+        Net[] nets = new Net[numberOfNets];
         
-        for (int runs = 0; runs < 50; runs++) {
+        for (int runs = 0; runs < numberOfNets; runs++) {
 
             Net firstNet = new Net();
             firstNet.generateNet();
@@ -60,7 +61,7 @@ public class NeuralNets {
                 secondNet = firstNet.clone();
                 secondNet.mutate(firstDelta);
             }
-            nets.add(firstNet);
+            nets[runs] = firstNet;
 
             double out = firstNet.runNet(30);
             System.out.println("In: 30, Out: " + out);
