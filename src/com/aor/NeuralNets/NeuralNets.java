@@ -37,13 +37,13 @@ public class NeuralNets {
                 //System.out.println("\tGot: " + secondOut + " Delta: " + secondDelta);
 
                 if ( secondDelta < firstDelta ) {
-                    //System.out.println("Net dying, awesomeness of: " + firstNet.awesomeness);
+                    //System.out.println("Net dying, age of: " + firstNet.age);
                     firstNet = secondNet;
                     firstDelta = secondDelta;
                     firstOut = secondOut;
                 }
                 firstNet.reset();
-                firstNet.awesomeness++;
+                firstNet.age++;
                 secondNet = firstNet.clone();
                 secondNet.mutate(firstDelta);
             }

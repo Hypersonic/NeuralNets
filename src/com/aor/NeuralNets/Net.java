@@ -11,7 +11,7 @@ public class Net {
     private ArrayList<OutputNode> _outputs;
     private ArrayList<Link> _links;
     private int _topId;
-    public int awesomeness;
+    public int age;
     
 
     public Net () {
@@ -20,7 +20,7 @@ public class Net {
         _outputs = new ArrayList<OutputNode>();
         _links = new ArrayList<Link>();
         _topId = 0;
-        awesomeness = 0;
+        age = 0;
     }
 
     public Net clone () {
