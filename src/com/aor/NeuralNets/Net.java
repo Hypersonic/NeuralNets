@@ -233,7 +233,7 @@ public class Net {
 
     // Getters/Setters
     
-    public void setTopId (int Id) {
+    public synchronized void setTopId (int Id) {
         _topId = Id;
     }
     public int getTopId () {
@@ -242,42 +242,42 @@ public class Net {
     public int getWidth () {
        return _netWidth;
     }
-    public void setWidth (int width) {
+    public void synchronized setWidth (int width) {
         _netWidth = width;
     }
 
     public int getLength () {
         return _netLength;
     }
-    public void setLength (int length) {
+    public void synchronized setLength (int length) {
         _netLength = length;
     }
 
     public ArrayList<Node> getNodes () {
         return _nodes;
     }
-    public void addNode (Node node) {
+    public void synchronized addNode (Node node) {
         _nodes.add(node);
     }
 
     public ArrayList<InputNode> getInputs () {
         return _inputs;
     }
-    public void addInput (InputNode node) {
+    public void synchronized addInput (InputNode node) {
         _inputs.add(node);
     }
 
     public ArrayList<OutputNode> getOutputs () {
         return _outputs;
     }
-    public void addOutput (OutputNode node) {
+    public void synchronized addOutput (OutputNode node) {
         _outputs.add(node);
     }
 
     public ArrayList<Link> getLinks () {
         return _links;
     }
-    public void addLink (Link link) {
+    public void synchronized addLink (Link link) {
         getLinks().add(link);
     }
 

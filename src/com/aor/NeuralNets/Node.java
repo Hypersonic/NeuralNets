@@ -69,21 +69,21 @@ public class Node {
         ans += "\tThreshold: " + _threshold + "\n";
         return ans;
     }
-    public void addLink (Link newLink) {
+    public synchronized void addLink (Link newLink) {
         _links.add(newLink);
     }
     public ArrayList<Link> getLinks () {
         return _links;
     }
 
-    public void addInput (Link newLink) {
+    public synchronized void addInput (Link newLink) {
         _inputs.add(newLink);
     }
     public ArrayList<Link> getInputs () {
         return _inputs;
     }
 
-    public void setReady (boolean ready) {
+    public synchronized void setReady (boolean ready) {
         _ready = ready;
     }
     public boolean getReady () {
@@ -93,14 +93,14 @@ public class Node {
     public double getThreshold () {
         return _threshold;
     }
-    public void setThreshold (double threshold) {
+    public synchronized void setThreshold (double threshold) {
         _threshold = threshold;
     }
     
     public int getId () {
         return _id;
     }
-    public void setId (int id) {
+    public synchronized void setId (int id) {
         _id = id;
     }
 
@@ -138,12 +138,12 @@ public class Node {
     /*
      * Recieve the trigger, do something with it
      */
-    public void recieveTrigger (double power) {
+    public synchronized void recieveTrigger (double power) {
         _totalInput += power;
         setReady(true);
     }
 
-    public void sendTrigger () {
+    public synchronized void sendTrigger () {
         double value;
         if (doOp(_op, _threshold, _totalInput)) value = _totalInput;//Math.sin(_totalInput); // sin to bring it from -1 to 1
         else value = 0;

@@ -53,14 +53,14 @@ public class Link {
     public double getWeight () {
         return _weight;
     }
-    public void setWeight (double weight) {
+    public synchronized void setWeight (double weight) {
         _weight = weight;
     }
 
     public Node getSource () {
         return _source;
     }
-    public void setSource (Node source) {
+    public synchronized void setSource (Node source) {
         _source = source;
         _source.addLink(this); // Register with source node
     }
@@ -68,7 +68,7 @@ public class Link {
     public Node getDestination () {
         return _destination;
     }
-    public void setDestination (Node destination) {
+    public synchronized void setDestination (Node destination) {
         _destination = destination;
         _destination.addInput(this); // Register with destination node
     }
