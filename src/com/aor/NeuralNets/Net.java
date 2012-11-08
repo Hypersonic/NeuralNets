@@ -242,42 +242,42 @@ public class Net {
     public int getWidth () {
        return _netWidth;
     }
-    public void synchronized setWidth (int width) {
+    public synchronized void setWidth (int width) {
         _netWidth = width;
     }
 
     public int getLength () {
         return _netLength;
     }
-    public void synchronized setLength (int length) {
+    public synchronized void setLength (int length) {
         _netLength = length;
     }
 
     public ArrayList<Node> getNodes () {
         return _nodes;
     }
-    public void synchronized addNode (Node node) {
+    public synchronized void addNode (Node node) {
         _nodes.add(node);
     }
 
     public ArrayList<InputNode> getInputs () {
         return _inputs;
     }
-    public void synchronized addInput (InputNode node) {
+    public synchronized void addInput (InputNode node) {
         _inputs.add(node);
     }
 
     public ArrayList<OutputNode> getOutputs () {
         return _outputs;
     }
-    public void synchronized addOutput (OutputNode node) {
+    public synchronized void addOutput (OutputNode node) {
         _outputs.add(node);
     }
 
     public ArrayList<Link> getLinks () {
         return _links;
     }
-    public void synchronized addLink (Link link) {
+    public synchronized void addLink (Link link) {
         getLinks().add(link);
     }
 

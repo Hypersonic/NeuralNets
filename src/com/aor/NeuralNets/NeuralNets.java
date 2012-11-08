@@ -11,20 +11,7 @@ public class NeuralNets {
     public static void main (String[] args) {
         System.out.println("MAX_INPUT: " + MAX_INPUT);
 
-        //Net mainNet = new Net();
-        //mainNet.generateNet();
-
-        //System.out.println("--------Running main net...--------");
-        //double firstOut = mainNet.runNet();
-
-        //System.out.println("------Cloning------");
-        //Net cloneNet = mainNet.clone();
-        //cloneNet.mutate();
-
-        //System.out.println("--------Running clone net...--------");
-        //double secondOut = cloneNet.runNet();
-
-        int numberOfNets = 50;
+        int numberOfNets = 100;
         Net[] nets = new Net[numberOfNets];
         
         for (int runs = 0; runs < numberOfNets; runs++) {
@@ -32,12 +19,11 @@ public class NeuralNets {
             Net firstNet = new Net();
             firstNet.generateNet();
 
-            Net secondNet = new Net();//firstNet.clone();
+            Net secondNet = new Net();
             secondNet.generateNet();
-            //secondNet.mutate();
 
 
-            for (int i = 0; i < 3000; i++) {
+            for (int i = 0; i < 5000; i++) {
 
                 double expectedOutput = 10 + (NeuralNets.generator.nextInt(300)*2);
 
