@@ -53,14 +53,6 @@ public class Net {
     }
 
     /*
-     * @deprecated
-     * Old method to generate a net without specifying length and width.
-     */
-    public void generateNet () {
-        generateNet(6,6);
-    }
-
-    /*
      * Populate this net with random stuffs
      */
     public void generateNet (int length, int width) {
@@ -120,7 +112,7 @@ public class Net {
         double inputDelta = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
         double workingInput = expectedOutput;
         for (InputNode input : _inputs) {
-            workingInput *= 2.0;
+            workingInput -= 2.0;
             input.recieveTrigger(workingInput);
         }
         
@@ -171,6 +163,7 @@ public class Net {
 
     /*
      * Reset all stored values
+     * NOTE: This is... bad. I shouldn't use it, but meeeeh. If it becomes a problem, I'll fix it.
      */
     public void reset () {
         for (Node node : getNodes()) {
@@ -205,11 +198,6 @@ public class Net {
             Link link = getLinks().get(i);
             link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian()));// + intensity));
         }
-    }
-
-    // Backwards compatibility stuff, just call mutate with the proper args
-    public void mutate () {
-        mutate(1);
     }
 
     // Helper methods
