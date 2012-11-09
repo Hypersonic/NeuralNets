@@ -120,7 +120,7 @@ public class Net {
         double inputDelta = 2.0; //NeuralNets.generator.nextInt(100); //Start at a random int, so the net doesn't evolve to just spit out the "right" answer for a given seed, rather than actually thinking it through.
         double workingInput = expectedOutput;
         for (InputNode input : _inputs) {
-            workingInput -= 2.0;
+            workingInput *= 2.0;
             input.recieveTrigger(workingInput);
         }
         
@@ -265,7 +265,7 @@ public class Net {
         return _links;
     }
     public synchronized void addLink (Link link) {
-        getLinks().add(link);
+        _links.add(link);
     }
 
 }
