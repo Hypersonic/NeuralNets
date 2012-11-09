@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class NeuralNets {
 
     public static final int MAX_INPUT = (int) Math.pow(2,16); //Double.MAX_VALUE;
-    public static Random generator = new Random();
+    public static final Random generator = new Random();
 
     public static void main (String[] args) {
         System.out.println("MAX_INPUT: " + MAX_INPUT);
@@ -14,13 +14,16 @@ public class NeuralNets {
         int numberOfNets = 100;
         Net[] nets = new Net[numberOfNets];
         
+        int netLength, netWidth;
+        netLength = netWidth = 6;
+
         for (int runs = 0; runs < numberOfNets; runs++) {
 
             Net firstNet = new Net();
-            firstNet.generateNet();
+            firstNet.generateNet(netLength, netWidth);
 
             Net secondNet = new Net();
-            secondNet.generateNet();
+            secondNet.generateNet(netLength, netWidth);
 
 
             for (int i = 0; i < 5000; i++) {
@@ -45,7 +48,7 @@ public class NeuralNets {
                 firstNet.reset();
                 firstNet.age++;
                 secondNet = firstNet.clone();
-                secondNet.mutate(firstDelta);
+                secondNet.mutate(-firstDelta);
             }
             nets[runs] = firstNet;
 
