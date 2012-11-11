@@ -124,9 +124,10 @@ public class Net {
             }
         }
         while (readyNodes.size() != 0) {
-            //System.out.println("----Activating next layer----");
+            //runStep();
+            ////System.out.println("----Activating next layer----");
             for (Node node : readyNodes) {
-                    node.sendTrigger();
+                node.sendTrigger();
             }
 
             readyNodes = new ArrayList<Node>();
@@ -142,6 +143,35 @@ public class Net {
         //System.out.println("Output from net: " + output);
         return output;
 
+    }
+
+    public void runStep () {
+        ArrayList<OutputNode> readyOutputs = new ArrayList<OutputNode>();
+        for (OutputNode output : _outputs) {
+            if (output.getReady()) {
+                readyOutputs.add(output);
+            }
+        }
+
+        while (readyOutputs.size() == 0) {
+            System.out.println("Blah");
+            ArrayList<Node> readyNodes = new ArrayList<Node>();
+            for (Node node : _nodes) {
+                if (node.getReady()) {
+                    readyNodes.add(node);
+                }
+            }
+            for (Node node : readyNodes) {
+                node.sendTrigger();
+            }
+
+            readyOutputs = new ArrayList<OutputNode>();
+            for (OutputNode output : _outputs) {
+                if (output.getReady()) {
+                    readyOutputs.add(output);
+                }
+            }
+        }
     }
 
     /*
@@ -197,6 +227,14 @@ public class Net {
         for (int i = bottomLink; i < topLink; i++) {
             Link link = getLinks().get(i);
             link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian()));// + intensity));
+        }
+
+        if (NeuralNets.generator.nextInt(10000) == 1) {
+            // Throw in some new, random links.
+            int linkSource = NeuralNets.generator.nextInt(getTopId() / 2) + 1;
+            int linkDest = NeuralNets.generator.nextInt(getTopId() / 2) + (getTopId() / 2);
+            Link newLink = new Link(getNodeForId(linkSource), getNodeForId(linkDest));
+            addLink(newLink);
         }
     }
 
