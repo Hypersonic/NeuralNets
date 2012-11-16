@@ -117,25 +117,23 @@ public class Net {
         }
         
         // Store the nodes that are ready so we don't get confused later
-        ArrayList<Node> readyNodes = new ArrayList<Node>();
-        for (Node node : _nodes) {
+        ArrayList<OutputNode> readyNodes = new ArrayList<OutputNode>();
+        for (OutputNode node : _outputs) {
             if (node.getReady()) {
                 readyNodes.add(node);
             }
         }
-        while (readyNodes.size() != 0) {
-            //runStep();
-            ////System.out.println("----Activating next layer----");
-            for (Node node : readyNodes) {
-                node.sendTrigger();
-            }
+        while (readyNodes.size() == 0) {
 
-            readyNodes = new ArrayList<Node>();
-            for (Node node : _nodes) {
+            readyNodes.clear();
+            for (OutputNode node : _outputs) {
                 if (node.getReady()) {
                     readyNodes.add(node);
                 }
             }
+
+            runStep(); // Run the step AFTER we update the list, so we get a chance to trigger the last layer (the outputs).
+
         }
         
         // get and print the output
@@ -146,31 +144,14 @@ public class Net {
     }
 
     public void runStep () {
-        ArrayList<OutputNode> readyOutputs = new ArrayList<OutputNode>();
-        for (OutputNode output : _outputs) {
-            if (output.getReady()) {
-                readyOutputs.add(output);
+        ArrayList<Node> readyNodes = new ArrayList<Node>();
+        for (Node node : _nodes) {
+            if (node.getReady()) {
+                readyNodes.add(node);
             }
         }
-
-        while (readyOutputs.size() == 0) {
-            System.out.println("Blah");
-            ArrayList<Node> readyNodes = new ArrayList<Node>();
-            for (Node node : _nodes) {
-                if (node.getReady()) {
-                    readyNodes.add(node);
-                }
-            }
-            for (Node node : readyNodes) {
-                node.sendTrigger();
-            }
-
-            readyOutputs = new ArrayList<OutputNode>();
-            for (OutputNode output : _outputs) {
-                if (output.getReady()) {
-                    readyOutputs.add(output);
-                }
-            }
+        for (Node node : readyNodes) {
+            node.sendTrigger();
         }
     }
 
