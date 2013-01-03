@@ -207,13 +207,13 @@ public class Net {
         //System.out.println("Bottom Link: " + bottomLink);
         for (int i = bottomLink; i < topLink; i++) {
             Link link = getLinks().get(i);
-            link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian()));// + intensity));
+            link.setWeight(link.getWeight() + (NeuralNets.generator.nextGaussian()));// * intensity));
         }
 
-        if (NeuralNets.generator.nextInt(10000) == 1) {
-            // Throw in some new, random links.
-            int linkSource = NeuralNets.generator.nextInt(getTopId() / 2) + 1;
-            int linkDest = NeuralNets.generator.nextInt(getTopId() / 2) + (getTopId() / 2);
+        if (NeuralNets.generator.nextInt(2000) == 1) {
+            // Throw in some new, random links, between 2 random nodes.
+            int linkSource = NeuralNets.generator.nextInt(getTopId()-1) + 1;
+            int linkDest = NeuralNets.generator.nextInt(getTopId()-1) + 1;
             Link newLink = new Link(getNodeForId(linkSource), getNodeForId(linkDest));
             addLink(newLink);
         }
